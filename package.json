@@ -1,0 +1,31 @@
+{
+  "name": "apedotcity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@tenderly/hardhat-tenderly": "^2.2.2",
+    "hardhat": "^2.22.2",
+    "hardhat-gas-reporter": "^2.1.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "@prb/math": "^4.0.2",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
+    "@uniswap/v2-sdk": "^4.3.2",
+    "abdk-libraries-solidity": "^3.2.0",
+    "bignumber.js": "^9.1.2",
+    "chalk": "4.1.2",
+    "cli-table": "^0.3.11",
+    "cli-table3": "^0.6.4",
+    "dotenv": "^16.4.5",
+    "hardhat-ethernal": "^3.2.5",
+    "prb-math": "^2.4.3"
+  }
+}
