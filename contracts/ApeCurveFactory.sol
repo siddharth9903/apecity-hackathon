@@ -18,16 +18,7 @@ contract ApeCurveFactory is Ownable {
     address public feeRecipientSetter;
 
     uint256 public swapFeePercentage;
-
-    uint256 public ethAmountForLiquidity;
-    uint256 public ethAmountForLiquidityFee;
-    uint256 public ethAmountForDevReward;
-
-    uint256 public tokenSupplyToSell;
-
     address public uniswapV2RouterAddress;
-
-    uint256 public standardReserveRatio;
 
     event TokenCreated(
         address indexed token,
@@ -38,30 +29,18 @@ contract ApeCurveFactory is Ownable {
 
     constructor(
         uint256 _tokenTotalSupply,
-        uint256 _tokenSupplyToSell,
         uint256 _swapFeePercentage,
-        uint256 _ethAmountForLiquidity,
-        uint256 _ethAmountForLiquidityFee,
-        uint256 _ethAmountForDevReward,
         address _uniswapV2RouterAddress,
         address _feeRecipient,
-        address _feeRecipientSetter,
-        uint256 _standardReserveRatio
+        address _feeRecipientSetter
     ) Ownable(msg.sender) {
         tokenTotalSupply = _tokenTotalSupply;
-        tokenSupplyToSell = _tokenSupplyToSell;
         swapFeePercentage = _swapFeePercentage;
-
-        ethAmountForLiquidity = _ethAmountForLiquidity;
-        ethAmountForLiquidityFee = _ethAmountForLiquidityFee;
-        ethAmountForDevReward = _ethAmountForDevReward;
-
+        
         uniswapV2RouterAddress = _uniswapV2RouterAddress;
 
         feeRecipientSetter = _feeRecipientSetter;
         feeRecipient = _feeRecipient;
-
-        standardReserveRatio = _standardReserveRatio;
     }
 
 
@@ -74,7 +53,12 @@ contract ApeCurveFactory is Ownable {
     function createToken(
         string memory name,
         string memory symbol,
-        string memory tokenURI
+        string memory tokenURI,
+        uint256 reserveRatio,
+        uint256 ethAmountForLiquidity,
+        uint256 ethAmountForLiquidityFee,
+        uint256 ethAmountForDevReward,
+        uint256 tokenSupplyToSell
     ) external payable returns (address) {
         ERC20FixedSupply token = new ERC20FixedSupply(
             name,
@@ -92,7 +76,7 @@ contract ApeCurveFactory is Ownable {
             ethAmountForDevReward,
             tokenSupplyToSell,
             uniswapV2RouterAddress,
-            standardReserveRatio
+            reserveRatio
         );
 
         require(
@@ -101,13 +85,13 @@ contract ApeCurveFactory is Ownable {
         );
 
         getTokenBondingCurve[address(token)] = address(bondingCurve);
-        getReserveRatio[address(bondingCurve)] = standardReserveRatio;
+        getReserveRatio[address(bondingCurve)] = reserveRatio;
         allTokenAddresses.push(address(token));
 
         emit TokenCreated(
             address(token),
             address(bondingCurve),
-            standardReserveRatio
+            reserveRatio
         );
 
         if (msg.value > 0) {
@@ -130,19 +114,5 @@ contract ApeCurveFactory is Ownable {
         address _uniswapV2RouterAddress
     ) external onlyOwner {
         uniswapV2RouterAddress = _uniswapV2RouterAddress;
-    }
-
-    function setBondingCurveVariables(
-        uint256 _tokenTotalSupply,
-        uint256 _ethAmountForLiquidity,
-        uint256 _ethAmountForLiquidityFee,
-        uint256 _ethAmountForDevReward,
-        uint256 _standardReserveRatio
-    ) external onlyOwner {
-        tokenTotalSupply =  _tokenTotalSupply;
-        ethAmountForLiquidity =  _ethAmountForLiquidity;
-        ethAmountForLiquidityFee =  _ethAmountForLiquidityFee;
-        ethAmountForDevReward =  _ethAmountForDevReward;
-        standardReserveRatio =  _standardReserveRatio;    
     }
 }

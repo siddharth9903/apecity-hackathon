@@ -38,23 +38,13 @@ module.exports = {
         hardhat: {
             allowUnlimitedContractSize: true,
         },
-        // hardhat: {
-        //   allowUnlimitedContractSize: true,
-        //   chains: {
-        //     8453: {
-        //       hardforkHistory: {
-        //         "london": 13576076,
-        //       }
-        //     },
-        //   },
-        //   hardfork: "london",
-        //   forking: {
-        //     url: `https://base.gateway.tenderly.co/7eSxf2jVQXhRN3QZ4bRkBj`,
-        //     enabled: true
-        //   }
+        // tenderly: {
+        //     url: "https://virtual.base.rpc.tenderly.co/1fc2e09b-1a7e-4895-ace9-a7fa5c88bc46",
+        //     accounts: [process.env.PRIVATE_KEY_1, process.env.PRIVATE_KEY_2],
+        //     chainId: 8454
         // },
-        tenderly: {
-            url: "https://virtual.base.rpc.tenderly.co/1fc2e09b-1a7e-4895-ace9-a7fa5c88bc46",
+        basefork: {
+            url: "https://virtual.base.rpc.tenderly.co/910edb69-358e-4833-a39f-23b99d34b10b",
             accounts: [process.env.PRIVATE_KEY_1, process.env.PRIVATE_KEY_2],
             chainId: 8454
         },
@@ -62,6 +52,16 @@ module.exports = {
             url: "https://base-rpc.publicnode.com",
             accounts: [process.env.PRIVATE_KEY_1, process.env.PRIVATE_KEY_2],
             chainId: 8453
+        },
+        bnb: {
+            url: "https://bscrpc.com",
+            accounts: [process.env.PRIVATE_KEY_1, process.env.PRIVATE_KEY_2],
+            chainId: 56
+        },
+        moonbeam: {
+            url: "https://moonbeam.drpc.org",
+            accounts: [process.env.PRIVATE_KEY_1, process.env.PRIVATE_KEY_2],
+            chainId: 1284
         },
         localhost: {
             url: "http://0.0.0.0:8545/",
